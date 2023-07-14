@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: pomodoro_app.AppTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.129 s - in pomodoro_app.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.106 s - in pomodoro_app.AppTest

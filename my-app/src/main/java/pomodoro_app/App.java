@@ -6,10 +6,13 @@ package pomodoro_app;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import pomodoro_app.Buttons.StartButton;
-public class App extends StartButton {
+import pomodoro_app.Chrono.CountdownTimer;
+
+public class App extends JFrame {
 
     JFrame frameObj;
 
@@ -19,8 +22,9 @@ public class App extends StartButton {
 
     JButton navBarTimer;
     JButton navBarStats;
+    CountdownTimer cdTimer = new CountdownTimer(10);
 
-    StartButton start = new StartButton();
+    StartButton start = new StartButton(cdTimer);
 
     public App() {
         panel1 = new JPanel();
@@ -40,6 +44,8 @@ public class App extends StartButton {
         panel1.add(navBarStats);
 
         panel2.add(start);
+
+        panel3.add(cdTimer);
 
         frameObj.setLayout(new java.awt.GridLayout(3, 1));
         frameObj.setSize(300, 600);
