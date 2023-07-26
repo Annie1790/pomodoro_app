@@ -25,16 +25,33 @@ public class CountdownTimer extends JLabel implements ActionListener {
         timer.start();
     }
 
-    public void reset(int minutes) {
-        this.remainingSec = minutes;
+    public void reset(int seconds) {
+        this.remainingSec = seconds;
         updateTime();
     }
 
     private void updateTime() {
-        this.setText(String.valueOf(remainingSec));
+        this.setText(formatSec(remainingSec));
         if (remainingSec <= 0) {
             timer.stop();
         }
+    }
+
+    private String formatSec(int seconds) {
+        int h = seconds / 3600;
+        int m = (seconds % 3600) / 60;
+        int s = seconds % 60;
+        if (h == 0) {
+            if (s == 0) {
+                String ss = "00";
+                return String.format("%d:%s", m, ss);
+            } else {
+                return String.format("%d:%d", m, s);
+            }
+        } else {
+            return String.format("%d:%d:%d", h, m, s);
+        }
+
     }
 
     @Override
@@ -42,6 +59,5 @@ public class CountdownTimer extends JLabel implements ActionListener {
         this.remainingSec -= 1;
         updateTime();
     }
-
 
 }
