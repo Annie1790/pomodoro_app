@@ -8,8 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pomodoro_app.Buttons.StartButton;
-import pomodoro_app.Buttons.StopButton;
+import pomodoro_app.Buttons.Buttons;
 import pomodoro_app.Chrono.CountdownTimer;
 
 public class App extends JFrame {
@@ -22,9 +21,8 @@ public class App extends JFrame {
 
     JButton navBarTimer;
     JButton navBarStats;
-    CountdownTimer cdTimer = new CountdownTimer(1500); 
 
-    StartButton start = new StartButton(cdTimer, new StopButton(cdTimer));
+    CountdownTimer cdTimer = new CountdownTimer(1500);
 
     public App() {
         panel1 = new JPanel();
@@ -43,7 +41,7 @@ public class App extends JFrame {
         panel1.add(navBarTimer);
         panel1.add(navBarStats);
 
-        panel2.add(start);
+        panel2.add(new Buttons(cdTimer));
 
         panel3.add(cdTimer);
 

@@ -11,25 +11,20 @@ public class StartButton extends JButton implements ActionListener {
 
     private Boolean startTimerBoolean;
     private CountdownTimer timer;
-    private StopButton stopButton;
 
-    public StartButton(CountdownTimer timer, StopButton stopButton) {
+    public StartButton(CountdownTimer timer) {
         this.setText("Start");
         this.timer = timer;
         this.addActionListener((ActionListener) this);
         this.setPreferredSize(new Dimension(100, 50));
         startTimerBoolean = false;
-
-        this.stopButton = stopButton;
     };
 
     public void setTimerButtonText() {
         if (startTimerBoolean == false) {
             this.setText("Start");
-            this.stopButton.setEnabled(false);
         } else {
             this.setText("Pause");
-            this.stopButton.setEnabled(true);
         }
     }
 
