@@ -30,6 +30,11 @@ public class CountdownTimer extends JLabel implements ActionListener {
         updateTime();
     }
 
+    public int getDuration() {
+        int duration = 1500 - this.remainingSec;
+        return duration;
+    }
+
     private void updateTime() {
         this.setText(formatSec(remainingSec));
         if (remainingSec <= 0) {

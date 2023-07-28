@@ -30,6 +30,7 @@ public class StartButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
+        System.out.println(startTimerBoolean);
         startTimerBoolean = !startTimerBoolean;
         if (startTimerBoolean == true) {
             this.timer.start();

@@ -26,10 +26,14 @@ public class Buttons extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        //if start fired
         if (event.getSource() == start && start.getText() == "Start") {
             stop.setEnabled(true);
-        } else if (event.getSource() == start && start.getText() == "Pause") {
+        } 
+        //if stop fired
+        else if (event.getSource() == stop) {
             stop.setEnabled(false);
+            start.setText("Start");
         }
     }
 
