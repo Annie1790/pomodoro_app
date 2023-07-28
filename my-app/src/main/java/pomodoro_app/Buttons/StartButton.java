@@ -9,7 +9,6 @@ import pomodoro_app.Chrono.CountdownTimer;
 
 public class StartButton extends JButton implements ActionListener {
 
-    private Boolean startTimerBoolean;
     private CountdownTimer timer;
 
     public StartButton(CountdownTimer timer) {
@@ -17,27 +16,17 @@ public class StartButton extends JButton implements ActionListener {
         this.timer = timer;
         this.addActionListener((ActionListener) this);
         this.setPreferredSize(new Dimension(100, 50));
-        startTimerBoolean = false;
     };
-
-    public void setTimerButtonText() {
-        if (startTimerBoolean == false) {
-            this.setText("Start");
-        } else {
-            this.setText("Pause");
-        }
-    }
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        System.out.println(startTimerBoolean);
-        startTimerBoolean = !startTimerBoolean;
-        if (startTimerBoolean == true) {
+        if (this.getText() == "Start") {
             this.timer.start();
-        } else {
+            this.setText("Pause");
+        } else if (this.getText() == "Pause") {
             this.timer.stop();
+            this.setText("Start");
         }
-        this.setTimerButtonText();
     }
 
 }
