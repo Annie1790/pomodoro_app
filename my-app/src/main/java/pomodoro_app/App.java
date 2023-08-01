@@ -1,6 +1,5 @@
 //build: mvn package
 //run:  java -cp target/my-app-1.0-SNAPSHOT.jar pomodoro_app.App
-
 package pomodoro_app;
 
 import javax.swing.BorderFactory;
@@ -13,14 +12,14 @@ import pomodoro_app.Chrono.CountdownTimer;
 
 public class App extends JFrame {
 
-    private JFrame frameObj;
+    private final JFrame frameObj;
 
-    private JPanel panel1;
-    private JPanel panel2;
-    private JPanel panel3;
+    private final JPanel panel1;
+    private final JPanel panel2;
+    private final JPanel panel3;
 
-    private JButton navBarTimer;
-    private JButton navBarStats;
+    private final JButton navBarTimer;
+    private final JButton navBarStats;
 
     CountdownTimer cdTimer = new CountdownTimer(1500);
 
@@ -51,9 +50,12 @@ public class App extends JFrame {
         frameObj.setVisible(true);
         frameObj.setTitle("Pomodoro App by Annie");
         frameObj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    };
+    }
+
+    ;
 
     public static void main(String[] args) {
-        new App();
-    };
+        App app = new App();
+    }
+;
 };
