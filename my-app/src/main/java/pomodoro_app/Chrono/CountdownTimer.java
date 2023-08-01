@@ -8,7 +8,7 @@ import javax.swing.Timer;
 
 public class CountdownTimer extends JLabel implements ActionListener {
 
-    int remainingSec;
+    private int remainingSec;
 
     Timer timer = new Timer(1000, this);
 

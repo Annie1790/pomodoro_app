@@ -13,14 +13,14 @@ import pomodoro_app.Chrono.CountdownTimer;
 
 public class App extends JFrame {
 
-    JFrame frameObj;
+    private JFrame frameObj;
 
-    JPanel panel1;
-    JPanel panel2;
-    JPanel panel3;
+    private JPanel panel1;
+    private JPanel panel2;
+    private JPanel panel3;
 
-    JButton navBarTimer;
-    JButton navBarStats;
+    private JButton navBarTimer;
+    private JButton navBarStats;
 
     CountdownTimer cdTimer = new CountdownTimer(1500);
 

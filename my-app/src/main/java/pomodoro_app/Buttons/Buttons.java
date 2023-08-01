@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 import pomodoro_app.Chrono.CountdownTimer;
 
 public class Buttons extends JPanel implements ActionListener {
-    public StopButton stop;
-    public StartButton start;
+    private StopButton stop;
+    private StartButton start;
 
     public Buttons(CountdownTimer timer) {
         stop = new StopButton(timer);

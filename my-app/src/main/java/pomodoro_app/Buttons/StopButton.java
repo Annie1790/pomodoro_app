@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import pomodoro_app.Chrono.CountdownTimer;
 
 public class StopButton extends JButton implements ActionListener {
-    CountdownTimer timer;
+    private CountdownTimer timer;
 
     public StopButton(CountdownTimer timer) {
         this.timer = timer;
