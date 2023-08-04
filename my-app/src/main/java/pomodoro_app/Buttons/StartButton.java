@@ -5,13 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
-import pomodoro_app.Chrono.CountdownTimer;
+import pomodoro_app.Chrono.ITimer;
 
 public class StartButton extends JButton implements ActionListener {
 
-    private CountdownTimer timer;
+    private ITimer timer;
 
-    public StartButton(CountdownTimer timer) {
+    public StartButton(ITimer timer) {
         this.setText("Start");
         this.timer = timer;
         this.addActionListener((ActionListener) this);

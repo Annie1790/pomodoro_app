@@ -1,6 +1,8 @@
-//build: mvn package
-//run:  java -cp target/my-app-1.0-SNAPSHOT.jar pomodoro_app.App
+//build: mvn compile assembly:single
+//run:  java -cp target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar pomodoro_app.App
 package pomodoro_app;
+
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -9,7 +11,7 @@ import javax.swing.JPanel;
 
 import pomodoro_app.Buttons.Buttons;
 import pomodoro_app.Chrono.CountdownTimer;
-
+import pomodoro_app.Database.Database;
 public class App extends JFrame {
 
     private final JFrame frameObj;
@@ -54,8 +56,11 @@ public class App extends JFrame {
 
     ;
 
-    public static void main(String[] args) {
-        App app = new App();
+    public static void main(String[] args) throws SQLException {
+        new App();
+        Database db = new Database();
+        db.connectToDatabase();
+        db.insertToDatabase(50);
     }
 ;
 };

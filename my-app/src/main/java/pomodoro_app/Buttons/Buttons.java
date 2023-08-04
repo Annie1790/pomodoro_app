@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import pomodoro_app.Chrono.CountdownTimer;
+import pomodoro_app.Chrono.ITimer;
 
 public class Buttons extends JPanel implements ActionListener {
     private StopButton stop;
     private StartButton start;
 
-    public Buttons(CountdownTimer timer) {
+    public Buttons(ITimer timer) {
         stop = new StopButton(timer);
         start = new StartButton(timer);
 
