@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import pomodoro_app.Chrono.CountdownTimer;
+import pomodoro_app.Chrono.ITimer;
 
 public class StopButton extends JButton implements ActionListener {
-    private CountdownTimer timer;
+    private ITimer timer;
 
-    public StopButton(CountdownTimer timer) {
+    public StopButton(ITimer timer) {
         this.timer = timer;
         this.addActionListener((ActionListener) this);
         this.setText("Stop");

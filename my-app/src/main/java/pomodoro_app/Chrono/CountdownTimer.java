@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-public class CountdownTimer extends JLabel implements ActionListener {
+public class CountdownTimer extends JLabel implements ActionListener, ITimer {
 
     private int remainingSec;
 
@@ -17,14 +17,17 @@ public class CountdownTimer extends JLabel implements ActionListener {
         updateTime();
     }
 
+    @Override
     public void stop() {
         timer.stop();
     }
 
+    @Override
     public void start() {
         timer.start();
     }
 
+    @Override
     public void reset(int seconds) {
         this.remainingSec = seconds;
         updateTime();
