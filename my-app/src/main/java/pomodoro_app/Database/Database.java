@@ -1,14 +1,31 @@
 package pomodoro_app.Database;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Database {
     Connection connection = null;
 
-    public void connectToDatabase() throws SQLException {
+    public Database() throws SQLException {
+        connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+        // if connection can't write the file, throws an exception and the value of
+        // connection remains null.
+        // this.connect() won't execute
+        this.connect();
+    }
+
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    private void connect() throws SQLException {
         try {
             // db create if not exist
-            connection = DriverManager.getConnection("jdbc:sqlite:database.db");
             Statement statement = connection.createStatement();
 
             // create table
@@ -19,9 +36,8 @@ public class Database {
         }
     }
 
-    public void insertToDatabase(int length) throws SQLException {
+    public void insert(int length) throws SQLException {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:database.db");
             Statement statement = connection.createStatement();
 
             statement.executeUpdate("INSERT INTO pomodoro (length, date) VALUES (" + length + " ,date('now'))");
@@ -30,12 +46,18 @@ public class Database {
         }
     }
 
-    public void queryDatabase() throws SQLException {
+    public void query() throws SQLException, ParseException {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:database.db");
             Statement statement = connection.createStatement();
 
-            statement.executeQuery("SELECT * FROM pomodoro");
+            ResultSet result = statement.executeQuery("SELECT * FROM pomodoro");
+            while (result.next()) {
+                System.out.println(result.getInt("id") + "\t" +
+                        result.getInt("length") + "\t" +
+                        result.getString("date")
+                        );
+            }
+
         } catch (SQLException e) {
             System.out.println(e);
         }

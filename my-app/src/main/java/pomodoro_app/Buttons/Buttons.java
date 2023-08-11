@@ -6,13 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import pomodoro_app.Chrono.ITimer;
+import pomodoro_app.Database.Database;
 
 public class Buttons extends JPanel implements ActionListener {
     private StopButton stop;
     private StartButton start;
 
-    public Buttons(ITimer timer) {
-        stop = new StopButton(timer);
+    public Buttons(ITimer timer, Database database) {
+        stop = new StopButton(timer, database);
         start = new StartButton(timer);
 
         stop.setEnabled(false);

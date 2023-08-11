@@ -4,63 +4,70 @@ package pomodoro_app;
 
 import java.sql.SQLException;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import pomodoro_app.Buttons.Buttons;
+import pomodoro_app.Buttons.Query;
 import pomodoro_app.Chrono.CountdownTimer;
 import pomodoro_app.Database.Database;
+
 public class App extends JFrame {
 
     private final JFrame frameObj;
 
+    private final JTabbedPane tabbedPanel;
+
     private final JPanel panel1;
     private final JPanel panel2;
-    private final JPanel panel3;
+    private final JPanel startStopContainer;
 
-    private final JButton navBarTimer;
-    private final JButton navBarStats;
+    private Database db;
 
     CountdownTimer cdTimer = new CountdownTimer(1500);
 
-    public App() {
+    public App() throws SQLException {
+
+        db = new Database();
+
         panel1 = new JPanel();
         panel2 = new JPanel();
-        panel3 = new JPanel();
-
-        navBarTimer = new JButton("Timer");
-        navBarStats = new JButton("Stats");
+        startStopContainer = new JPanel();
 
         frameObj = new JFrame();
-        frameObj.add(panel1);
-        frameObj.add(panel3);
-        frameObj.add(panel2);
+        startStopContainer.add(new Buttons(cdTimer, db));
+        
+        panel1.add(cdTimer);
+        panel1.add(startStopContainer);
+        panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
 
-        panel1.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
-        panel1.add(navBarTimer);
-        panel1.add(navBarStats);
+        panel2.add(new Query(db));
 
-        panel2.add(new Buttons(cdTimer));
+        tabbedPanel = new JTabbedPane();
+        tabbedPanel.setSize(300, 600);
+        tabbedPanel.addTab("Timer", panel1);
+        tabbedPanel.addTab("Stats", panel2);
 
-        panel3.add(cdTimer);
-
+        frameObj.add(tabbedPanel);
         frameObj.setLayout(new java.awt.GridLayout(3, 1));
         frameObj.setSize(300, 600);
         frameObj.pack();
         frameObj.setVisible(true);
         frameObj.setTitle("Pomodoro App by Annie");
-        frameObj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
 
-    ;
+        frameObj.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                db.close();
+                frameObj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            }
+        });
+    }
 
     public static void main(String[] args) throws SQLException {
         new App();
-        Database db = new Database();
-        db.connectToDatabase();
-        db.insertToDatabase(50);
-    }
-;
+    };
 };
