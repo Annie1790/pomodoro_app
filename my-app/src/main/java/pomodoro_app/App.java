@@ -2,17 +2,19 @@
 //run:  java -cp target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar pomodoro_app.App
 package pomodoro_app;
 
+import java.awt.Dimension;
 import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.plaf.DimensionUIResource;
 
 import pomodoro_app.Buttons.Buttons;
-import pomodoro_app.Buttons.Query;
 import pomodoro_app.Chrono.CountdownTimer;
 import pomodoro_app.Database.Database;
+import pomodoro_app.Stats.StatGui;
 
 public class App extends JFrame {
 
@@ -35,24 +37,26 @@ public class App extends JFrame {
         panel1 = new JPanel();
         panel2 = new JPanel();
         startStopContainer = new JPanel();
+        startStopContainer.add(new Buttons(cdTimer, db));
 
         frameObj = new JFrame();
-        startStopContainer.add(new Buttons(cdTimer, db));
-        
+
+        // timer tab
         panel1.add(cdTimer);
         panel1.add(startStopContainer);
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
 
-        panel2.add(new Query(db));
+        // stats tab
+        panel2.add(new StatGui());
+        panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
 
         tabbedPanel = new JTabbedPane();
-        tabbedPanel.setSize(300, 600);
         tabbedPanel.addTab("Timer", panel1);
         tabbedPanel.addTab("Stats", panel2);
+        tabbedPanel.setPreferredSize(new Dimension(300, 600));
 
         frameObj.add(tabbedPanel);
-        frameObj.setLayout(new java.awt.GridLayout(3, 1));
-        frameObj.setSize(300, 600);
+        frameObj.setPreferredSize(new DimensionUIResource(300, 150));
         frameObj.pack();
         frameObj.setVisible(true);
         frameObj.setTitle("Pomodoro App by Annie");
