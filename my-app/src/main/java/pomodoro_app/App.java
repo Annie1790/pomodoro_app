@@ -4,12 +4,12 @@ package pomodoro_app;
 
 import java.awt.Dimension;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.plaf.DimensionUIResource;
 
 import pomodoro_app.Buttons.Buttons;
 import pomodoro_app.Chrono.CountdownTimer;
@@ -30,7 +30,7 @@ public class App extends JFrame {
 
     CountdownTimer cdTimer = new CountdownTimer(1500);
 
-    public App() throws SQLException {
+    public App() throws SQLException, ParseException {
 
         db = new Database();
 
@@ -47,16 +47,13 @@ public class App extends JFrame {
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
 
         // stats tab
-        panel2.add(new StatGui());
-        panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+        panel2.add(new StatGui(db));
 
         tabbedPanel = new JTabbedPane();
         tabbedPanel.addTab("Timer", panel1);
         tabbedPanel.addTab("Stats", panel2);
-        tabbedPanel.setPreferredSize(new Dimension(300, 600));
 
         frameObj.add(tabbedPanel);
-        frameObj.setPreferredSize(new DimensionUIResource(300, 150));
         frameObj.pack();
         frameObj.setVisible(true);
         frameObj.setTitle("Pomodoro App by Annie");
@@ -71,7 +68,7 @@ public class App extends JFrame {
         });
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ParseException {
         new App();
     };
 };

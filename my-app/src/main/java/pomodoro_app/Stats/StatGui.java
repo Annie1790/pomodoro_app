@@ -1,17 +1,22 @@
 package pomodoro_app.Stats;
 
-import java.text.NumberFormat;
+import java.awt.Insets;
+import java.sql.SQLException;
+import java.text.ParseException;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+
+import pomodoro_app.Database.Database;
 
 public class StatGui extends JPanel {
     // Panels
     private final JPanel chronoButtons;
     private final JPanel queryPanel;
     private final JPanel allTimePanel;
-
 
     // Buttons for query data
     private final JButton today;
@@ -25,10 +30,7 @@ public class StatGui extends JPanel {
     private JTextArea allText;
     private JTextArea allTime;
 
-    // Format and parse numbers
-    // private NumberFormat parseInt;
-
-    public StatGui() {
+    public StatGui(Database database) throws SQLException, ParseException {
         today = new JButton("day");
         week = new JButton("week");
         month = new JButton("month");
@@ -37,7 +39,7 @@ public class StatGui extends JPanel {
         queryTime = new JTextArea("2:00 h");
 
         allText = new JTextArea("All time:");
-        allTime = new JTextArea("15:00 h");
+        allTime = new JTextArea(database.getAllTime() + "h");
 
         chronoButtons = new JPanel();
         chronoButtons.add(today);
@@ -52,9 +54,11 @@ public class StatGui extends JPanel {
         allTimePanel.add(allText);
         allTimePanel.add(allTime);
 
-        // Adding to JPanel
+        // Adding to JPanel and set layout
         this.add(chronoButtons);
         this.add(queryPanel);
         this.add(allTimePanel);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(new EmptyBorder(new Insets(100, 50, 100, 50)));
     }
 }

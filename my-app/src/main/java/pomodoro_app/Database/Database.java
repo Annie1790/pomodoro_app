@@ -46,6 +46,7 @@ public class Database {
         }
     }
 
+    // Test
     public void query() throws SQLException, ParseException {
         try {
             Statement statement = connection.createStatement();
@@ -54,13 +55,45 @@ public class Database {
             while (result.next()) {
                 System.out.println(result.getInt("id") + "\t" +
                         result.getInt("length") + "\t" +
-                        result.getString("date")
-                        );
+                        result.getString("date"));
             }
 
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+
+    public String getAllTime() throws SQLException, ParseException {
+        try {
+            int allTimeInt = 0;
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery("SELECT * FROM pomodoro");
+            while (result.next()) {
+                allTimeInt += result.getInt("length");
+            }
+            return formatSec(allTimeInt);
+        } catch (SQLException e) {
+            System.out.println(e);
+            return "Error";
+        }
+    }
+
+    private String formatSec(int seconds) {
+        int h = seconds / 3600;
+        int m = (seconds % 3600) / 60;
+        int s = seconds % 60;
+        if (h == 0) {
+            if (s == 0) {
+                String ss = "00";
+                return String.format("%d:%s", m, ss);
+            } else {
+                return String.format("%d:%d", m, s);
+            }
+        } else {
+            return String.format("%d:%d:%d", h, m, s);
+        }
+
     }
 
 }

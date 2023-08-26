@@ -1,9 +1,12 @@
 package pomodoro_app.Buttons;
 
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import pomodoro_app.Chrono.ITimer;
 import pomodoro_app.Database.Database;
@@ -18,8 +21,13 @@ public class Buttons extends JPanel implements ActionListener {
 
         stop.setEnabled(false);
 
-        this.add(start);
-        this.add(stop);
+        JPanel utilityCont = new JPanel();
+        utilityCont.add(start);
+        utilityCont.add(stop);
+
+        this.add(utilityCont);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(new EmptyBorder(new Insets(100, 50, 100, 50)));
 
         start.addActionListener(this);
         stop.addActionListener(this);
