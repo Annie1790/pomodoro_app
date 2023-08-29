@@ -77,20 +77,20 @@ public class StatGui extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == today) {
             try {
-                queryTime.setText(this.database.getSelectedTime(new DateUtils().getToday()));
+                queryTime.setText(this.database.getSelectedTime(new DateUtils().getToday()) + "h");
             } catch (SQLException | ParseException e) {
                 System.out.println("Error on today time query: \n" + e);
             }
         } else if (event.getSource() == week) {
             try {
-                queryTime.setText(this.database.getSelectedTime(new DateUtils().getWeek()));
+                queryTime.setText(this.database.getSelectedTime(new DateUtils().getWeek()) + "h");
             } catch (SQLException | ParseException e) {
                 System.out.println("Error on this week time query: \n" + e);
 
             }
         } else if (event.getSource() == month) {
             try {
-                queryTime.setText(this.database.getSelectedTime(new DateUtils().getMonth()));
+                queryTime.setText(this.database.getSelectedTime(new DateUtils().getMonth()) + "h");
             } catch (SQLException | ParseException e) {
                 System.out.println("Error on this month time query: \n" + e);
 

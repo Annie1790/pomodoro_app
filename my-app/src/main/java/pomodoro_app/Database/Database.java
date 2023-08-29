@@ -70,9 +70,6 @@ public class Database {
             ResultSet result = statement
                     .executeQuery("SELECT * FROM pomodoro WHERE date BETWEEN date('" + arg + "') AND date('now')");
             while (result.next()) {
-                System.out.println(result.getInt("id") + "\t" +
-                        result.getInt("length") + "\t" +
-                        result.getString("date"));
                 selectedTimeInt += result.getInt("length");
             }
             return formatSec(selectedTimeInt);
@@ -99,8 +96,8 @@ public class Database {
     }
 
     private String formatSec(int seconds) {
-        double hours = Math.ceil(seconds * 0.000277778);
-        return String.format("%s", hours);
+        double hours = (seconds * 0.000277778);
+        return String.format("%.2f", hours);
     }
 
 }
