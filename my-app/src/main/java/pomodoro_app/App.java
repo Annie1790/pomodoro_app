@@ -2,7 +2,6 @@
 //run:  java -cp target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar pomodoro_app.App
 package pomodoro_app;
 
-import java.awt.Dimension;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -11,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import pomodoro_app.Buttons.Buttons;
+import pomodoro_app.Buttons.TimerGui;
 import pomodoro_app.Chrono.CountdownTimer;
 import pomodoro_app.Database.Database;
 import pomodoro_app.Stats.StatGui;
@@ -24,7 +23,6 @@ public class App extends JFrame {
 
     private final JPanel panel1;
     private final JPanel panel2;
-    private final JPanel startStopContainer;
 
     private Database db;
 
@@ -33,26 +31,24 @@ public class App extends JFrame {
     public App() throws SQLException, ParseException {
 
         db = new Database();
-
         panel1 = new JPanel();
         panel2 = new JPanel();
-        startStopContainer = new JPanel();
-        startStopContainer.add(new Buttons(cdTimer, db));
-
         frameObj = new JFrame();
 
         // timer tab
         panel1.add(cdTimer);
-        panel1.add(startStopContainer);
+        panel1.add(new TimerGui(cdTimer, db));
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
 
         // stats tab
         panel2.add(new StatGui(db));
 
+        // tab itself
         tabbedPanel = new JTabbedPane();
         tabbedPanel.addTab("Timer", panel1);
         tabbedPanel.addTab("Stats", panel2);
 
+        // frame
         frameObj.add(tabbedPanel);
         frameObj.pack();
         frameObj.setVisible(true);
@@ -63,7 +59,6 @@ public class App extends JFrame {
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 db.close();
                 frameObj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
             }
         });
     }

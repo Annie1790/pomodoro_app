@@ -2,7 +2,6 @@ package pomodoro_app.Database;
 
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class Database {
     Connection connection = null;
@@ -63,6 +62,26 @@ public class Database {
         }
     }
 
+    public String getSelectedTime(String arg) throws SQLException, ParseException {
+        try {
+            int selectedTimeInt = 0;
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement
+                    .executeQuery("SELECT * FROM pomodoro WHERE date BETWEEN date('" + arg + "') AND date('now')");
+            while (result.next()) {
+                System.out.println(result.getInt("id") + "\t" +
+                        result.getInt("length") + "\t" +
+                        result.getString("date"));
+                selectedTimeInt += result.getInt("length");
+            }
+            return formatSec(selectedTimeInt);
+        } catch (SQLException e) {
+            System.out.println(e);
+            return "Selected time query error: \n" + e;
+        }
+    }
+
     public String getAllTime() throws SQLException, ParseException {
         try {
             int allTimeInt = 0;
@@ -75,25 +94,13 @@ public class Database {
             return formatSec(allTimeInt);
         } catch (SQLException e) {
             System.out.println(e);
-            return "Error";
+            return "All time query error: \n" + e;
         }
     }
 
     private String formatSec(int seconds) {
-        int h = seconds / 3600;
-        int m = (seconds % 3600) / 60;
-        int s = seconds % 60;
-        if (h == 0) {
-            if (s == 0) {
-                String ss = "00";
-                return String.format("%d:%s", m, ss);
-            } else {
-                return String.format("%d:%d", m, s);
-            }
-        } else {
-            return String.format("%d:%d:%d", h, m, s);
-        }
-
+        double hours = Math.ceil(seconds * 0.000277778);
+        return String.format("%s", hours);
     }
 
 }

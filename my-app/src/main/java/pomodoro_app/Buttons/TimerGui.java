@@ -11,16 +11,18 @@ import javax.swing.border.EmptyBorder;
 import pomodoro_app.Chrono.ITimer;
 import pomodoro_app.Database.Database;
 
-public class Buttons extends JPanel implements ActionListener {
+public class TimerGui extends JPanel implements ActionListener {
     private StopButton stop;
     private StartButton start;
 
-    public Buttons(ITimer timer, Database database) {
+    public TimerGui(ITimer timer, Database database) {
         stop = new StopButton(timer, database);
         start = new StartButton(timer);
 
+        // standard
         stop.setEnabled(false);
 
+        // panel for better layout
         JPanel utilityCont = new JPanel();
         utilityCont.add(start);
         utilityCont.add(stop);
